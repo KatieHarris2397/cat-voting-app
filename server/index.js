@@ -84,11 +84,10 @@ app.get('/api/cats', async (req, res) => {
 app.get('/api/cats/random', async (req, res) => {
   try {
     if (supabase) {
+      // Fetch all cats first, then select a random one
       const { data, error } = await supabase
         .from('cats')
-        .select('*')
-        .order('random()')
-        .limit(1);
+        .select('*');
 
       if (error) throw error;
 
@@ -96,7 +95,9 @@ app.get('/api/cats/random', async (req, res) => {
         return res.status(404).json({ error: 'No cats found' });
       }
 
-      res.json(data[0]);
+      // Select a random cat from the results
+      const randomCat = data[Math.floor(Math.random() * data.length)];
+      res.json(randomCat);
     } else {
       // Use mock data - return random cat
       const randomCat = mockCats[Math.floor(Math.random() * mockCats.length)];
