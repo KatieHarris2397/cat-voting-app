@@ -152,13 +152,19 @@ app.post('/api/votes', async (req, res) => {
     }
 
     if (supabase) {
+      // Handle invalid IP addresses by using a default IP or null
+      let validVoterIp = voterIp;
+      if (voterIp === 'anonymous' || !voterIp) {
+        validVoterIp = '127.0.0.1'; // Use localhost as default
+      }
+
       const { data, error } = await supabase
         .from('votes')
         .insert([
           {
             cat_id: catId,
             is_cute: isCute,
-            voter_ip: voterIp
+            voter_ip: validVoterIp
           }
         ])
         .select();
