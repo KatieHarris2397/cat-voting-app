@@ -1,0 +1,19 @@
+application:
+  name: "cute-or-not-cat-app"
+  pods:
+    - name: "frontend"
+      image: "registry.nexlayer.io/nexlayer-mcp/62b8555a9bcb1433a857183de559749a/cat-voting-app-e255f4ba-frontend:b6804eac-1758734171"
+      path: "/"
+      servicePorts: [80]
+      vars:
+        NODE_ENV: "production"
+    - name: "backend"
+      image: "registry.nexlayer.io/nexlayer-mcp/62b8555a9bcb1433a857183de559749a/cat-voting-app-e255f4ba-backend:b6804eac-1758734171"
+      servicePorts: [5000]
+      vars:
+        NODE_ENV: "production"
+        PORT: "5000"
+        VITE_SUPABASE_URL: "https://ivbijiqzgujhinqdiqnp.supabase.co"
+        VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2YmlqaXF6Z3VqaGlucWRpcW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MzUyMzMsImV4cCI6MjA3NDMxMTIzM30.CT1GOaZek0taYc0b4rTbNRAGcmo10YrFvloW9GUU5oA"
+        SUPABASE_URL: "https://ivbijiqzgujhinqdiqnp.supabase.co"
+        SUPABASE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2YmlqaXF6Z3VqaGlucWRpcW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MzUyMzMsImV4cCI6MjA3NDMxMTIzM30.CT1GOaZek0taYc0b4rTbNRAGcmo10YrFvloW9GUU5oA"
