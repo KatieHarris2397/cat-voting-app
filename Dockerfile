@@ -10,8 +10,11 @@ COPY package*.json ./
 COPY client/package*.json ./client/
 COPY server/package*.json ./server/
 
-# Install dependencies
-RUN npm install
+# Install production dependencies for the root and each sub-package
+# (this repo is not an npm workspace, so each dir must be installed on its own)
+RUN npm install --only=production \
+  && cd client && npm install --only=production \
+  && cd ../server && npm install --only=production
 
 # Build the client
 FROM base AS builder
@@ -22,8 +25,9 @@ COPY package*.json ./
 COPY client/package*.json ./client/
 COPY server/package*.json ./server/
 
-# Install all dependencies (including dev dependencies)
-RUN npm install
+# Install all dependencies (including dev deps needed to build the client)
+RUN npm install \
+  && cd client && npm install
 
 # Copy source code
 COPY client/ ./client/
