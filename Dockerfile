@@ -11,7 +11,7 @@ COPY client/package*.json ./client/
 COPY server/package*.json ./server/
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm install
 
 # Build the client
 FROM base AS builder
@@ -23,7 +23,7 @@ COPY client/package*.json ./client/
 COPY server/package*.json ./server/
 
 # Install all dependencies (including dev dependencies)
-RUN npm ci
+RUN npm install
 
 # Copy source code
 COPY client/ ./client/
